@@ -42,7 +42,7 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public Optional<Account> findById(String id) {
+	public Optional<Account> findById(Integer id) {
 		return accountRepository.findById(id);
 	}
 
@@ -52,13 +52,25 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public void deleteById(String id) {
+	public void deleteById(Integer id) {
 		accountRepository.deleteById(id);
 	}
 
 	@Override
 	public void delete(Account entity) {
 		accountRepository.delete(entity);
+	}
+
+
+	@Override
+	public Account findByEmail(String email) {
+		return accountRepository.findByEmail(email);
+	}
+
+
+	@Override
+	public Account getById(Integer id) {
+		return accountRepository.getById(id);
 	}
 
 	
