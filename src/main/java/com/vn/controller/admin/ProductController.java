@@ -1,6 +1,5 @@
 package com.vn.controller.admin;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,12 +26,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.entity.Category;
 import com.vn.entity.Product;
-import com.vn.model.CategoryDto;
 import com.vn.model.ProductDto;
 import com.vn.service.CategoryService;
 import com.vn.service.ParamService;
