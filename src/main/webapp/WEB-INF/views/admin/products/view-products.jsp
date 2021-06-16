@@ -60,6 +60,7 @@
 					</tr>
 				</thead>
 				<tbody>
+				<!-- <a class="btn btn-danger btn-sm" href="/admin/products/delete/${p.id }"  >Del</a> -->
 					<tr>
 						<c:forEach items="${ListProduct.content}" var="p">
 							<tr>
@@ -71,8 +72,30 @@
 								<td align="center" width="120"><img
 									src="https://dienmaythienhoa.vn/static/images/4.%20hinh%20sp/3.%20Hinh%20SP%202/laptop-asus-s330fn-ey037t-1.png"
 									width="100" height="100" /></td>
-								<td><a class="btn btn-primary btn-sm" href="/admin/products/edit/${p.id }">Edit</a>| <a
-									class="btn btn-danger btn-sm" href="/admin/products/delete/${p.id }">Del</a></td>
+								<td><a class="btn btn-primary btn-sm" href="/admin/products/edit/${p.id }">Edit</a>| 
+								<button onclick="openRelativeModal(${ p.id })" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal${ p.id }">
+                                  Delete
+
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal${ p.id }" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title text-dark" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body text-dark">
+                                        Bạn chắc chắn? 
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <a id="delete" type="button" class="btn btn-primary" href="/admin/products/delete/${p.id }" >Xóa</a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+								</td>
 							</tr>
 
 						</c:forEach>

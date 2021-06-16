@@ -27,6 +27,7 @@ import com.vn.entity.Account;
 import com.vn.mapper.AccountMapper;
 import com.vn.model.AccountDto;
 import com.vn.service.AccountService;
+import com.vn.service.ParamService;
 import com.vn.utils.HashUtil;
 import com.vn.utils.UploadFile;
 
@@ -43,8 +44,11 @@ public class AccountController {
 	private AccountMapper mapper;
 	@Autowired
 	private UploadFile uploadutil;
+	
+	@Autowired
+	private ParamService paramService;
 
-	@GetMapping()
+	@GetMapping(value = {"/",""})
 	public String index(Model model) {
 		String sortBy = request.getParameter("sort_by");
 		String sortDirection = request.getParameter("sort_direction");
@@ -58,19 +62,19 @@ public class AccountController {
 		Pageable pageable = PageRequest.of(page, limit, sort);
 		Page pageData = accountService.findAll(pageable);
 		model.addAttribute("pageData", pageData);
-		return "admin/account/index";
+		return "adminAccountList";
 	}
 
 	@GetMapping(value = "{id}")
 	public String show(Model model, @PathVariable("id") Account account) {
 		AccountDto accountDto = this.mapper.convertToDTO(account);
 		model.addAttribute("user", accountDto);
-		return "admin/account/show";
+		return "adminAccountShow";
 	}
 
 	@GetMapping(value = "/create")
 	public String create(@ModelAttribute("user") AccountDto accountDto) {
-		return "admin/account/create";
+		return "adminAccountAdd";
 	}
 
 	@PostMapping(value = "/store")
@@ -78,7 +82,7 @@ public class AccountController {
 			@RequestParam("upload_file") MultipartFile uploadFile) {
 		if (result.hasErrors()) {
 			model.addAttribute("errors", result.getAllErrors());
-			return "admin/account/create";
+			return "adminAccountAdd";
 		} else {
 			Account entity = this.mapper.convertToEntity(accountDto);
 			String hashpassword = HashUtil.hash(entity.getPassword());
@@ -91,8 +95,8 @@ public class AccountController {
 				session.setAttribute("sucessfully", "Thêm thành công");
 				this.accountService.save(entity);
 			} else {
-				session.setAttribute("error", "email không được trùng");
-				return "admin/account/create";
+				session.setAttribute("error", "Email không được trùng");
+				return "adminAccountAdd";
 			}
 
 			return "redirect:/admin/account";
@@ -104,7 +108,7 @@ public class AccountController {
 	public String edit(Model model, @PathVariable("id") Account entity) {
 		AccountDto accountDto = this.mapper.convertToDTO(entity);
 		model.addAttribute("user", accountDto);
-		return "admin/account/edit";
+		return "adminAccountEdit";
 	}
 
 	@PostMapping(value = "/update/{id}")
@@ -112,7 +116,7 @@ public class AccountController {
 			@RequestParam("upload_file") MultipartFile uploadFile) {
 		if (result.hasErrors()) {
 			model.addAttribute("errors", result.getAllErrors());
-			return "admin/account/edit";
+			return "adminAccountEdit";
 		} else {
 			Account entity = this.mapper.convertToEntity(accountDto);
 			Account paw = accountService.getById(entity.getId());
@@ -132,4 +136,5 @@ public class AccountController {
 		accountService.deleteById(id);
 		return "redirect:/admin/account";
 	}
+
 }

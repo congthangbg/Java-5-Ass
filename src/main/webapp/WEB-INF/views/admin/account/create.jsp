@@ -2,16 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Create</title>
-<link rel="stylesheet"
-	href="${ pageContext.request.contextPath }/css/bootstrap.min.css"></link>
-</head>
-<body>
+
 	<div class="mt-5 col-10 offset-1">
+		<h2 class="text-center">Create Account</h2>
 		<form:form modelAttribute="user" method="POST"
 			enctype="multipart/form-data"
 			action="${ pageContext.request.contextPath }/admin/account/store">
@@ -38,7 +31,7 @@
 				<label for="role">Tài khoản</label>
 				<form:select path="admin" id="admin" class="form-control">
 					<form:option value="1">Admin</form:option>
-					<form:option value="0">member</form:option>
+					<form:option value="0">User</form:option>
 				</form:select>
 				<form:errors path="admin" element="span" cssClass="text-danger" />
 			</div>
@@ -56,11 +49,8 @@
 			</div>
 			<div class="form-group mt-3">
 				<button class="btn btn-primary">Submit</button>
-				<a href="${ pageContext.request.contextPath }/admin/users/create" type="reset" class="btn btn-danger">Clear</a >
+				<button type="reset" class="btn btn-danger">Clear</button >
 			</div>
 		</form:form>
 	</div>
 
-
-</body>
-</html>

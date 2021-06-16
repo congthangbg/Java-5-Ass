@@ -1,6 +1,10 @@
 package com.vn.controller.admin;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.vn.entity.Account;
 import com.vn.service.AccountService;
+import com.vn.utils.CookieUtils;
 import com.vn.utils.HashUtil;
+import com.vn.utils.SessionUtils;
 
 @Controller
 public class Logincontroler {
@@ -21,6 +27,8 @@ public class Logincontroler {
 	@Autowired
 	private HttpServletRequest request;
 
+	@Autowired
+	HttpServletResponse response;
 	@GetMapping("/login")
 	public String getLoginForm() {
 		return "/auth/login";
@@ -45,6 +53,16 @@ public class Logincontroler {
 		}
 		
 		session.setAttribute("user", entity);
-		return "redirect:/admin/account";
+		return "redirect:/admin";
+	}
+	
+	@GetMapping("/logout")
+	public String logout() throws ServletException, IOException {
+
+		CookieUtils.addCookie("email", null, 0, response);
+		SessionUtils.invalidate(request);
+		request.setAttribute("isLogin", false);
+
+		return "redirect:/login";
 	}
 }
