@@ -61,21 +61,44 @@
 							</tr>
 						</thead>
 						<tbody>
-						
+							<!-- 
+						<a href="${pageContext.request.contextPath}/admin/categories/delete/${cate.categoryId}"
+										class="btn btn-outline-danger">
+										<i class="fas fa-recycle "></i>Delete</a>
+						 -->
 							<c:forEach items="${categoryPage.content }" var="cate">
 								<tr>
 									<td scope="row">${cate.categoryId }</td>
 									<!-- th:text="${category.name}" -->
 									<td>${cate.name }</td>
-									<td>
-									 <a
+									<td><a
 										href="${pageContext.request.contextPath}/admin/categories/edit/${cate.categoryId}"
 										class="btn btn-outline-warning"><i class="fas fa-edit "></i>Edit</a>
-										<a
-										href="${pageContext.request.contextPath}/admin/categories/delete/${cate.categoryId}"
-										class="btn btn-outline-danger" onclick="confirmDelete();"><i
-											class="fas fa-recycle "></i>Delete</a>
-									</td>
+										|
+										<button onclick="openRelativeModal(${ cate.categoryId })" type="button"
+											class="btn btn-danger btn-md" data-bs-toggle="modal"
+											data-bs-target="#exampleModal${ cate.categoryId }"><i class="fas fa-recycle "></i> Delete</button> <!-- Modal -->
+										<div class="modal fade" id="exampleModal${cate.categoryId }"
+											tabindex="-1" aria-labelledby="exampleModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title text-dark" id="exampleModalLabel">Modal
+															title</h5>
+														<button type="button" class="btn-close"
+															data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<div class="modal-body text-dark">Bạn chắc chắn?</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-bs-dismiss="modal">Close</button> 
+														<a id="delete" type="button" class="btn btn-outline-danger"
+															href="/admin/categories/delete/${cate.categoryId}">Xóa</a>
+													</div>
+												</div>
+											</div>
+										</div></td>
 								</tr>
 							</c:forEach>
 						</tbody>

@@ -37,7 +37,6 @@ public class HomeController {
 		Page<Product> page=productService.findAll(pageable);
 		
 		//List<Product> list= page.getContent();
-		
 		model.addAttribute("ListProduct",page);
 		return "homePage";
 	}
@@ -48,10 +47,11 @@ public class HomeController {
 		return "detailProductPage";
 	} 
 	
-	@GetMapping("/login")
-	public String login(Model model){
-		return "login";
-	} 
+//	@GetMapping("/login")
+//	public String login(Model model){
+//		return "/auth/login";
+//	} 
+	
 	
 	@GetMapping("/register")
 	public String register(Model model){

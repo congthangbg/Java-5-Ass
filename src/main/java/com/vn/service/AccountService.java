@@ -16,11 +16,11 @@ public interface AccountService {
 
 	void delete(Account entity);
 
-	void deleteById(String id);
+	void deleteById(Integer id);
 
 	<S extends Account> Page<S> findAll(Example<S> example, Pageable pageable);
 
-	Optional<Account> findById(String id);
+	Optional<Account> findById(Integer id);
 
 	List<Account> findAll(Sort sort);
 
@@ -29,6 +29,10 @@ public interface AccountService {
 	Page<Account> findAll(Pageable pageable);
 
 	Account save(Account entity);
+
+	Account findByEmail(String email);
+
+	Account getById(Integer id);
 
 
 }

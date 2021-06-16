@@ -104,15 +104,30 @@
 		extends="base.definition.admin">
 		<put-attribute name="title" value="Account add ..." />
 		<put-attribute name="body"
-			value="/WEB-INF/views/admin/account/register-form.jsp" />
+			value="/WEB-INF/views/admin/account/create.jsp" />
 	</definition>
 	
 		<definition name="adminAccountList"
 		extends="base.definition.admin">
 		<put-attribute name="title" value="Account list ..." />
 		<put-attribute name="body"
-			value="/WEB-INF/views/admin/account/view-account.jsp" />
+			value="/WEB-INF/views/admin/account/index.jsp" />
 	</definition>
+	
+	<definition name="adminAccountEdit"
+		extends="base.definition.admin">
+		<put-attribute name="title" value="Account Èdit ..." />
+		<put-attribute name="body"
+			value="/WEB-INF/views/admin/account/edit.jsp" />
+	</definition>
+	
+	<definition name="adminAccountShow"
+		extends="base.definition.admin">
+		<put-attribute name="title" value="Account show ..." />
+		<put-attribute name="body"
+			value="/WEB-INF/views/admin/account/show.jsp" />
+	</definition>
+	
 	<!-- FOR ADMIN END -->
 
 </tiles-definitions>

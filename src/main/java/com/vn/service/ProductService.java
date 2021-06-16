@@ -46,6 +46,9 @@ public interface ProductService {
 
 	Page<Product> findByNameContaining(String name, Pageable pageable);
 
+	List<Product> filterProductByCateId(int i);
+	
+
 	
 
 

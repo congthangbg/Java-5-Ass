@@ -59,9 +59,18 @@
 
 							</div>
 							<div class="col-4">
-								<img src="../../../../uploads/maytinh.jpg" width="80%"
+								<c:choose>
+								<c:when test="${product.image == null ||  product.image == ''}">
+									<img src="../../../../uploads/maytinh.jpg" width="80%"
 									class="img-fluid {3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}"
 									alt="">
+								</c:when>
+								<c:otherwise>
+									
+										<img class="card-img-top"
+										src="../../../uploads/${product.image }" alt="..." />
+								</c:otherwise>
+							</c:choose>
 								<div class="form-group mt-4">
 									<label for="productImage">Image Files</label>
 									 <input
