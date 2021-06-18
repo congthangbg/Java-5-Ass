@@ -21,7 +21,7 @@ public class UserAuthentcate implements HandlerInterceptor{
 	    ) throws IOException {
 	        HttpSession session = request.getSession();
 	        Account account = (Account) session.getAttribute("user");
-	        if ( account.getAdmin() == 2  ) {
+	        if ( account.getAdmin() == 0  ) {
 	            response.sendRedirect(request.getContextPath() + "/login");
 	            return false;
 	        }

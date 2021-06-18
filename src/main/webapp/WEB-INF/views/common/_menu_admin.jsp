@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://www.springframework.org/tags" prefix="tag" %>
 <!-- Navigation-->
 
  
@@ -14,18 +15,9 @@
                     <li class="nav-item"><a class="nav-link" href="/admin/categories">Category</a></li>
                     <li class="nav-item"><a class="nav-link" href="/admin/account">Account</a></li>
                      <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-                      <li class="nav-item"><a class="nav-link" href="/admin/account/register">Register</a></li>
-                   <li class="nav-item dropdown">
-                       <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
-                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                           <li><a class="dropdown-item" href="#!">Logout</a></li>    
-                           <li><hr class="dropdown-divider" /></li>
-                           <li><a class="dropdown-item" href="#!">Change Password</a></li>
-                           <li><a class="dropdown-item" href="#!">Edit account</a></li>
-                       </ul>
-                   </li>
-                   <li class="nav-item"><a class="nav-link" href="domain.html">Tiếng Anh</a></li>
-						<li class="nav-item"><a class="nav-link" href="pricing.html">Tiếng Việt</a></li>
+                     
+                   <li class="nav-item"><a class="nav-link" href="/admin?lang=vi">Tiếng Anh</a></li>
+						<li class="nav-item"><a class="nav-link" href="/admin?lang=en">Tiếng Việt</a></li>
                </ul>
                <form class="d-flex">
                    <a class="btn btn-outline-dark" type="submit" href="/admin/shoppingCart/views">

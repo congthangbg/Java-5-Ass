@@ -51,9 +51,14 @@ public class Logincontroler {
 			session.setAttribute("error", "Sai email hoặc mật khẩu");
 			return "redirect:/login";
 		}
+		if(entity.getAdmin()==1) {
+			session.setAttribute("user", entity);
+			return "redirect:/admin";
+		}else {
+			session.setAttribute("user", entity);
+			return "redirect:/user";
+		}
 		
-		session.setAttribute("user", entity);
-		return "redirect:/admin";
 	}
 	
 	@GetMapping("/logout")

@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.vn.entity.Category;
 import com.vn.entity.Product;
+import com.vn.service.CategoryService;
 import com.vn.service.ProductService;
 
 
 @Controller
-@RequestMapping("product")
+@RequestMapping("/product")
 public class ProductController2 {
 	
 	@Autowired
@@ -33,6 +35,9 @@ public class ProductController2 {
 	@Autowired
 	HttpServletResponse response;
 	
+	@Autowired
+	private CategoryService categoryService;
+	
 	@GetMapping("views")
 	public String viewProduct(Model model,@RequestParam("field") Optional<String> filed) {
 		
@@ -41,6 +46,9 @@ public class ProductController2 {
 		Sort sort=Sort.by(Direction.DESC,filed.orElse("price"));
 		List<Product> list=(List<Product>) productService.findAll(sort);
 		model.addAttribute("ListProduct", list);
+		
+		List<Category> listCate=categoryService.findAll();
+		model.addAttribute("listCate", listCate);
 		return "view-products";
 	}
 	
@@ -48,6 +56,9 @@ public class ProductController2 {
 	public String paginate(Model model,@RequestParam("p") Optional<Integer> p,
 			@RequestParam("field") Optional<String> filed) {
 
+		List<Category> listCate=categoryService.findAll();
+		model.addAttribute("listCate", listCate);
+		
 		Pageable pageable=PageRequest.of(p.orElse(0), 5,Sort.by(Direction.DESC,filed.orElse("price")));
 		Page<Product> page=productService.findAll(pageable);
 		model.addAttribute("ListProduct", page);

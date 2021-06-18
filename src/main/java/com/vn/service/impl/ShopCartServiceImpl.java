@@ -1,30 +1,74 @@
 package com.vn.service.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
+import com.vn.entity.Account;
+import com.vn.entity.Order;
+import com.vn.entity.OrderDetail;
+import com.vn.entity.Product;
+import com.vn.mapper.OrderDetailMapper;
 import com.vn.model.CartItemDto;
+import com.vn.repository.OrderDetailRepository;
+import com.vn.repository.OrderRepository;
+import com.vn.service.ProductService;
 import com.vn.service.ShopCartService;
 
 @Service
 @SessionScope
 public class ShopCartServiceImpl implements ShopCartService{
 	private Map<Integer, CartItemDto> map = new HashMap<Integer, CartItemDto>();//gio hang
+	
+	@Autowired
+	private OrderDetailMapper orderDetailMapper;
+	
+	@Autowired
+	private ProductService productService;
+	@Autowired
+	private OrderRepository orderRepository;
+	
+	@Autowired
+	private OrderDetailRepository orderDetailRepository;
+	
+	@Autowired
+	HttpServletRequest request;
+	
+	@Autowired
+	HttpSession session;
 
+	
 	@Override
 	public void add(CartItemDto item) {
 		CartItemDto existedItem = map.get(item.getProductId());
+		List<OrderDetail> list=new ArrayList<OrderDetail>();
+		
 		if (existedItem != null) {
 			existedItem.setQuantity(item.getQuantity() + existedItem.getQuantity());
+			
 		} else {
 			map.put(item.getProductId(), item);
 		}
-
+		
+		
 	}
+	
+	@Override
+	public Order getOrderByFiled(Date createDate, Account account, String address) {
+		return orderRepository.getOrderByFiled(createDate, account, address);
+	}
+
 	@Override
 	public void remove(int productId) {
 		map.remove(productId);
@@ -62,4 +106,6 @@ public class ShopCartServiceImpl implements ShopCartService{
 		}
 		return map.values().size();
 	}
+	
+	
 }

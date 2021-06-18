@@ -66,9 +66,6 @@ public class AdminController {
 	
 		List<Product> list=productService.filterProductByCateId(Integer.parseInt(id));
 		
-		for (Product product : list) {
-			System.out.println(product.getName());
-		}
 		Page<Product> page=new PageImpl<Product>(list);
 		
 		model.addAttribute("ListProduct",page);

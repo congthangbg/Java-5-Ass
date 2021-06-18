@@ -109,6 +109,8 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> filterProductByCateId(int cateId) {
 		return productRepository.filterProductByCateId(cateId);
 	}
+
+
 	
 	
 }
