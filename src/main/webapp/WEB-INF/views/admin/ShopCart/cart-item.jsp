@@ -85,26 +85,27 @@
 
 			</div>
 			<div class="row float-right">
-				<div class="col-md-8 text-center">
-				
-        			<div class="form-group mt-3">
-						<label for=address>Address</label>
-					    <input path="address" class="form-control" id="address" name="address" autocomplete="off" />
-				
-					</div>
-        	
-				</div>
-				<div class="col-md-4 float-right">
-					<div class="row">
-						<div class="col-md-7">
+			<form action="/admin/shoppingCart/save" method="get">
+				<div class="col-md-12 text-center">
+        			<div class="row">
+					    <div class="col-md-2">
+							<label for=address>Address :</label>
+						</div>
+						<div class="col-md-4">
+							  <input class="form-control" id="address"  name="address" placeholder="Nhập địa chỉ..." autocomplete="off" />
+						</div>
+					
+						<div class="col-md-3">
 							<p>Tổng Tiền:${total}</p>
 						</div>
-						<div class="col-md-5">
-							<a class="btn btn-warning btn-md"  onclick="confirm();">Thanh
-								toán</a>
+						<div class="col-md-3">
+							<button class="btn btn-warning btn-md" onclick="confirm();">Thanh toán</button>
 						</div>
+					
 					</div>
 				</div>
+
+				</form>
 			</div>
 		</div>
 	</section>

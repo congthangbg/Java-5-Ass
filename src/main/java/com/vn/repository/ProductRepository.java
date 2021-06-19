@@ -20,6 +20,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 	
 	Page<Product> findByNameContaining(String name,Pageable pageable);
 	
+	Product findByIdContaining(Integer id);
 	
 	@Query(value =  "select * from products inner join categories on categories.category_id=products.category_id\r\n"
 			+ "where categories.category_id = ?1",nativeQuery = true)

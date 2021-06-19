@@ -76,19 +76,19 @@ OrderDetailMapper orderDetailMapper;
 //		order.setCreateDate(new Date());
 //		orderRepository.save(order);
 //		
-//		Date date = new Date();
-//		Order order2 = orderRepository.getOrderByFiled(date, account, "BG");
-//		
+////		Date date = new Date();
+////		Order order2 = orderRepository.getOrderByFiled(date, account, "BG");
+////		
 //		Collection<CartItemDto> cartItems = shoppingCartSevice.getAllCartItems();
 //		List<CartItemDto> listEntity1 = cartItems.stream().collect(Collectors.toList());
 //		List<OrderDetail> listEntity = orderDetailMapper.convertToListEntity(listEntity1);
-//		
-//		for (OrderDetail orderDetail : listEntity) {
-//			orderDetail.setOrder(order2);
-//		}	
-//		order2.setOrder_details(listEntity);
-//		
-//		orderRepository.save(order2);
+////		
+////		for (OrderDetail orderDetail : listEntity) {
+////			orderDetail.setOrder(order2);
+////		}	
+////		order2.setOrder_details(listEntity);
+////		
+////		orderRepository.save(order2);
 //		
 //		return "redirect:/admin/";
 //	}

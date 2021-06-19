@@ -51,7 +51,7 @@ public class ShopCartController {
 	private DateFormat dateFormat;
 	@Autowired
 	HttpServletRequest request;
-
+	
 	@Autowired
 	HttpSession session;
 
@@ -70,36 +70,39 @@ public class ShopCartController {
 		return "adminShopCart";
 	}
 
-//	@GetMapping("save")
-//	public String createDB() {
-//		Order order = new Order();
-//
-//		Account account = (Account) session.getAttribute("user");
-//		System.out.println(account.getEmail());
-//
-//		order.setAccount(account);
-//		order.setAddress("BG");
-//		order.setCreateDate(new Date());
-//		orderRepository.save(order);
-//
-//		Date date = new Date();
-//		//Order order2 = orderRepository.getOrderByFiled(date, account, "BG");
-//
-//		Collection<CartItemDto> cartItems = shoppingCartSevice.getAllCartItems();
-//		List<CartItemDto> listEntity1 = cartItems.stream().collect(Collectors.toList());
-//		List<OrderDetail> listEntity = orderDetailMapper.convertToListEntity(listEntity1);
-//
-//		orderDetailService.saveAll(listEntity);
-////		
-////		for (OrderDetail orderDetail : listEntity) {
-////			orderDetail.setOrder(order2);
-////		}	
-////		order2.setOrder_details(listEntity);
-////		
-////		orderRepository.save(order2);
-//
-//		return "redirect:/admin/";
-//	}
+	@GetMapping("save")
+	public String createDB(@RequestParam("address")String address) {
+		Order order = new Order();
+		//lấy ra tk đã đăng nhập
+		Account account = (Account) session.getAttribute("user");
+		
+		Date date=new Date();
+		//save Order vào DB
+		order.setAccount(account);
+		order.setAddress(address);
+		order.setCreateDate(date);
+		orderRepository.save(order);
+
+		//set OrderDetail to DB
+		
+		Order orderNewSave = orderRepository.getOrderByFiled(date, account, address);
+
+		//convert Collection<CartItemDto> ->>>> List
+		Collection<CartItemDto> cartItems = shoppingCartSevice.getAllCartItems();
+		List<CartItemDto> listEntity1 = cartItems.stream().collect(Collectors.toList());
+		List<OrderDetail> listEntity = orderDetailMapper.convertToListEntity(listEntity1);
+		
+		//set lại khóa (Order,Product) cho orderDetail
+		for (OrderDetail orderDetail : listEntity) {
+			orderDetail.setOrder(orderNewSave);
+			Optional<Product> product=productService.findById(orderDetail.getId());
+			orderDetail.setProduct(product.get());
+		}	
+		
+		orderDetailService.saveAll(listEntity);
+		
+		return "redirect:/admin/shoppingCart/views";
+	}
 
 	@GetMapping("add/{productId}")
 	public String add(@PathVariable("productId") Integer productId) {

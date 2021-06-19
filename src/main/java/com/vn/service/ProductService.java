@@ -49,6 +49,8 @@ public interface ProductService {
 
 	List<Product> filterProductByCateId(int i);
 
+	Product findByIdContaining(Integer id);
+
 	
 
 

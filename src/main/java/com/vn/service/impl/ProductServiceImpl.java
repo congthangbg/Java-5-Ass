@@ -110,6 +110,11 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.filterProductByCateId(cateId);
 	}
 
+	@Override
+	public Product findByIdContaining(Integer id) {
+		return productRepository.findByIdContaining(id);
+	}
+
 
 	
 	
