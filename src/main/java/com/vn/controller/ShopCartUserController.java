@@ -25,6 +25,7 @@ import com.vn.entity.Product;
 import com.vn.mapper.OrderDetailMapper;
 import com.vn.model.CartItemDto;
 import com.vn.repository.OrderRepository;
+import com.vn.service.OrderDetailService;
 import com.vn.service.ProductService;
 import com.vn.service.ShopCartService;
 import com.vn.utils.DateFormat;
@@ -40,10 +41,12 @@ public class ShopCartUserController {
 	@Autowired
 	private OrderRepository orderRepository;
 	
-@Autowired
-OrderDetailMapper orderDetailMapper;
 	@Autowired
-	private DateFormat dateFormat;
+	OrderDetailService orderDetailService;
+
+	@Autowired
+	OrderDetailMapper orderDetailMapper;
+
 	@Autowired
 	HttpServletRequest request;
 	
@@ -64,34 +67,47 @@ OrderDetailMapper orderDetailMapper;
 		return "shopCart";
 	}
 	
-//	@GetMapping("save")
-//	public String createDB() {
-//		Order order = new Order();
-//		
-//		Account account= (Account) session.getAttribute("user");
-//		System.out.println(account.getEmail());
-//		
-//		order.setAccount(account);
-//		order.setAddress("BG");
-//		order.setCreateDate(new Date());
-//		orderRepository.save(order);
-//		
-////		Date date = new Date();
-////		Order order2 = orderRepository.getOrderByFiled(date, account, "BG");
-////		
-//		Collection<CartItemDto> cartItems = shoppingCartSevice.getAllCartItems();
-//		List<CartItemDto> listEntity1 = cartItems.stream().collect(Collectors.toList());
-//		List<OrderDetail> listEntity = orderDetailMapper.convertToListEntity(listEntity1);
-////		
-////		for (OrderDetail orderDetail : listEntity) {
-////			orderDetail.setOrder(order2);
-////		}	
-////		order2.setOrder_details(listEntity);
-////		
-////		orderRepository.save(order2);
-//		
-//		return "redirect:/admin/";
-//	}
+	
+	@GetMapping("save")
+	public String createDB(Model model,@RequestParam("address") String address) {
+		if(address.equals("")) {
+			model.addAttribute("errors","Vui lòng nhập địa chỉ");
+		
+			return "forward:/user/shoppingCart/views";
+		}
+		Order order = new Order();
+		//lấy ra tk đã đăng nhập
+		Account account = (Account) session.getAttribute("user");
+		
+		Date date=new Date();
+		//save Order vào DB
+		order.setAccount(account);
+		order.setAddress(address);
+		order.setCreateDate(date);
+		orderRepository.save(order);
+
+		//set OrderDetail to DB
+		
+		Order orderNewSave = orderRepository.getOrderByFiled(date, account, address);
+
+		//convert Collection<CartItemDto> ->>>> List
+		Collection<CartItemDto> cartItems = shoppingCartSevice.getAllCartItems();
+		List<CartItemDto> listEntity1 = cartItems.stream().collect(Collectors.toList());
+		List<OrderDetail> listEntity = orderDetailMapper.convertToListEntity(listEntity1);
+		
+		//set lại khóa (Order,Product) cho orderDetail
+		for (OrderDetail orderDetail : listEntity) {
+			orderDetail.setOrder(orderNewSave);
+			Optional<Product> product=productService.findById(orderDetail.getId());
+			orderDetail.setProduct(product.get());
+		}	
+		
+		orderDetailService.saveAll(listEntity);
+		
+		model.addAttribute("message", "Bạn đã thanh toán thành công!");
+		
+		return "shopCart";
+	}
 
 	@GetMapping("add/{productId}")
 	public String add(@PathVariable("productId") Integer productId) {

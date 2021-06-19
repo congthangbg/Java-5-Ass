@@ -131,10 +131,16 @@ public class ProductController {
 
 	@GetMapping("delete/{id}")
 	public String delete(@PathVariable("id") Integer id) {
-		productService.deleteById(id);
-		session=request.getSession();
-		session.setAttribute("message", "Product is deleted!");
-		return ("redirect:/admin/products");
+		try {
+			productService.deleteById(id);
+			session=request.getSession();
+			session.setAttribute("message", "Product is deleted!");
+			return ("redirect:/admin/products");
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.setAttribute("message", "Không thể xóa sản phẩm đã liên kết");
+			return ("redirect:/admin/products");
+		}
 	}
 	
 	

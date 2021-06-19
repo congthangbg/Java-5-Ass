@@ -28,14 +28,19 @@ layout:decorate="~{admin/dashBoardLayout.html}">
     
     </head>
     <body>
+    
         <!-- Menu -->
         <tiles:insertAttribute name="menu" />
         <!-- Header-->
         <tiles:insertAttribute name="header" />
         <!-- content -->
+        <div style="background-image: url('https://img.freepik.com/free-vector/white-abstract-background_23-2148810113.jpg?size=626&ext=jpg&ga=GA1.2.1520673327.1623369600');background-repeat: no-repeat; background-attachment: fixed;
+  background-size: 100% 100%;">
         <tiles:insertAttribute name="body" />
+        </div>
         <!-- Footer-->
         <tiles:insertAttribute name="footer" />
+    
     </body>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>

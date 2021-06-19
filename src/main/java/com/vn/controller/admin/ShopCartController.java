@@ -8,11 +8,14 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +27,7 @@ import com.vn.entity.OrderDetail;
 import com.vn.entity.Product;
 import com.vn.mapper.OrderDetailMapper;
 import com.vn.model.CartItemDto;
+import com.vn.model.OrderDTO;
 import com.vn.repository.OrderRepository;
 import com.vn.service.OrderDetailService;
 import com.vn.service.ProductService;
@@ -60,10 +64,6 @@ public class ShopCartController {
 		Collection<CartItemDto> cartItems = shoppingCartSevice.getAllCartItems();
 
 		model.addAttribute("cartItems", cartItems);
-		for (CartItemDto cartItemDto : cartItems) {
-			System.out.println(cartItemDto.getName() + "--" + cartItemDto.getProductId() + "--" + cartItemDto.getPrice()
-					+ "--" + cartItemDto.getQuantity());
-		}
 
 		model.addAttribute("total", shoppingCartSevice.getAmount());
 		model.addAttribute("NoOfItems", shoppingCartSevice.getCount());
@@ -71,7 +71,12 @@ public class ShopCartController {
 	}
 
 	@GetMapping("save")
-	public String createDB(@RequestParam("address")String address) {
+	public String createDB(Model model,@RequestParam("address") String address) {
+		if(address.equals("")) {
+			model.addAttribute("errors","Vui lòng nhập địa chỉ");
+		
+			return "forward:/admin/shoppingCart/views";
+		}
 		Order order = new Order();
 		//lấy ra tk đã đăng nhập
 		Account account = (Account) session.getAttribute("user");
@@ -101,7 +106,9 @@ public class ShopCartController {
 		
 		orderDetailService.saveAll(listEntity);
 		
-		return "redirect:/admin/shoppingCart/views";
+		model.addAttribute("message", "Bạn đã thanh toán thành công!");
+		
+		return "adminShopCart";
 	}
 
 	@GetMapping("add/{productId}")
@@ -119,6 +126,7 @@ public class ShopCartController {
 		}
 		return "redirect:/admin/shoppingCart/views";
 	}
+	
 
 	@GetMapping("remove/{productId}")
 	public String remove(@PathVariable("productId") Integer productId) {

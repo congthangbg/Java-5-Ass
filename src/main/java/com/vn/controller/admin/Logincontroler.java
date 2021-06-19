@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -29,8 +30,18 @@ public class Logincontroler {
 
 	@Autowired
 	HttpServletResponse response;
+	
+	@Autowired
+	HttpSession session;
 	@GetMapping("/login")
-	public String getLoginForm() {
+	public String getLoginForm(	) {
+//		Account account = (Account) session.getAttribute("user");
+//		
+//		if(account != null && request.getRequestURI().equals("/login") && account.getAdmin()==1){
+//			return "redirect:/admin";
+//		}else if(account != null && request.getRequestURI().equals("/login")){
+//			return "redirect:/user";
+//		}
 		return "/auth/login";
 	}
 	
@@ -38,26 +49,31 @@ public class Logincontroler {
 	public String login(
 		@RequestParam("email") String email,
 		@RequestParam("password") String password
+	
 	) {
-		Account entity = accountService.findByEmail(email);
-		HttpSession session = request.getSession();
-		if (entity == null) {
+		System.out.println("---------------------"+request.getRequestURI());
+		Account account = accountService.findByEmail(email);
+		session = request.getSession();
+		if (account == null) {
 			session.setAttribute("error", "Sai email hoặc mật khẩu");
 			return "redirect:/login";
 		}
+		
 
-		boolean checkPwd = HashUtil.verify(password, entity.getPassword());
+		boolean checkPwd = HashUtil.verify(password, account.getPassword());
 		if (!checkPwd) {
 			session.setAttribute("error", "Sai email hoặc mật khẩu");
 			return "redirect:/login";
 		}
-		if(entity.getAdmin()==1) {
-			session.setAttribute("user", entity);
+		if(account.getAdmin()==1) {
+			session.setAttribute("user", account);
 			return "redirect:/admin";
 		}else {
-			session.setAttribute("user", entity);
+			session.setAttribute("user", account);
 			return "redirect:/user";
 		}
+		
+		
 		
 	}
 	

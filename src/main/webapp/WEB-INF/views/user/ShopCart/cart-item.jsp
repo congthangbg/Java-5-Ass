@@ -14,6 +14,10 @@
 						Cart</a> <a class="btn btn-success btn-md" href="/user/">Add more</a>
 				</div>
 			</div>
+			<c:if test="${ not empty message }">
+            <div class="alert alert-success mt-4">${message }</div>
+            <c:remove var="message" scope="session"/>
+           </c:if>
 			<div class="col-sm-12 text-center">
 				<table class="table table-striped ">
 					<thead>
@@ -43,7 +47,7 @@
 				href="/admin/shoppingCart/remove/${item.productId }">Remove</a></td>
 			 -->
 			<td>
-				<button onclick="openRelativeModal(${ item.iproductIdd })"
+				<button onclick="openRelativeModal(${ item.productId })"
 					type="button" class="btn btn-danger btn-sm"
 					data-bs-toggle="modal"
 					data-bs-target="#exampleModal${item.productId  }">Remove</button>
@@ -84,21 +88,32 @@
 				<hr />
 
 			</div>
-			<div class="row float-right">
-				<div class="col-md-8 text-center">
-			
-				</div>
-				<div class="col-md-4 float-right">
-					<div class="row">
-						<div class="col-md-7">
-							<p>Tổng Tiền:${total}</p>
-						</div>
-						<div class="col-md-5">
-							<a class="btn btn-warning btn-md"  onclick="confirm();">Thanh
-								toán</a>
+			<div class="row float-right mb-5">
+				<form action="/user/shoppingCart/save"  method="get">
+					<div class="col-md-12 text-center">
+						<div class="row">
+							<div class="col-md-2">
+								<label for=address>Address :</label>
+							</div>
+							<div class="col-md-4">
+								<input class="form-control" id="address" name="address" path="address"
+									placeholder="Nhập địa chỉ..." autocomplete="off" />
+								
+									<span class="error">${errors}</span>
+							</div>
+
+							<div class="col-md-3">
+								<p>Tổng Tiền:${total}</p>
+							</div>
+							<div class="col-md-3">
+								<button class="btn btn-warning btn-md" >Thanh
+									toán</button>
+							</div>
+
 						</div>
 					</div>
-				</div>
+
+				</form>
 			</div>
 		</div>
 	</section>

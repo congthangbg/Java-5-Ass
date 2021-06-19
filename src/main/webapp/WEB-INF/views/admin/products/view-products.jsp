@@ -73,7 +73,7 @@
 									src="https://dienmaythienhoa.vn/static/images/4.%20hinh%20sp/3.%20Hinh%20SP%202/laptop-asus-s330fn-ey037t-1.png"
 									width="100" height="100" /></td>
 								<td><a class="btn btn-primary btn-sm" href="/admin/products/edit/${p.id }">Edit</a>| 
-								<button onclick="openRelativeModal(${ p.id })" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal${ p.id }">
+								<button onclick="openRelativeModal(${ p.id })" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal${ p.id }">
                                   Delete
 
                                 </button>
@@ -82,15 +82,15 @@
                                   <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                       <div class="modal-header">
-                                        <h5 class="modal-title text-dark" id="exampleModalLabel">Modal title</h5>
+                                        <h5 class="modal-title text-dark" id="exampleModalLabel">Thông báo</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                       </div>
                                       <div class="modal-body text-dark">
-                                        Bạn chắc chắn? 
+                                        Bạn chắc chắn muốn xóa? 
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <a id="delete" type="button" class="btn btn-primary" href="/admin/products/delete/${p.id }" >Xóa</a>
+                                        <a id="delete" type="button" class="btn btn-primary " href="/admin/products/delete/${p.id }" >Xóa</a>
                                       </div>
                                     </div>
                                   </div>

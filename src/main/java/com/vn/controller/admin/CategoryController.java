@@ -92,10 +92,16 @@ public class CategoryController {
 	}
 	@GetMapping("delete/{categoryId}")
 	public ModelAndView delete(ModelMap model,@PathVariable("categoryId") Integer categoryId) {
-		categoryService.deleteById(categoryId);
-		session=request.getSession();
-		session.setAttribute("message", "Category is deleted!");
-		return new ModelAndView("redirect:/admin/categories",model);
+		try {
+			categoryService.deleteById(categoryId);
+			session=request.getSession();
+			session.setAttribute("message", "Category is deleted!");
+			return new ModelAndView("redirect:/admin/categories",model);
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.setAttribute("message", "Không thể xóa các danh mục đã liên kết");
+			return new ModelAndView("redirect:/admin/categories",model);
+		}
 	}
 //
 //	@GetMapping("search")
@@ -117,7 +123,7 @@ public class CategoryController {
 			@RequestParam("size") Optional<Integer> size
 			) {
 		int currentPage=page.orElse(1);
-		int pageSize=size.orElse(4);
+		int pageSize=size.orElse(5);
 		
 		Pageable pageable=PageRequest.of(currentPage -1, pageSize,Sort.by("name"));
 		Page<Category> resultPage=null;
