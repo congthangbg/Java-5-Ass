@@ -1,7 +1,10 @@
 package com.vn.service;
 
 import java.util.Collection;
+import java.util.Date;
 
+import com.vn.entity.Account;
+import com.vn.entity.Order;
 import com.vn.model.CartItemDto;
 
 public interface ShopCartService {
@@ -19,6 +22,8 @@ public interface ShopCartService {
 	void remove(int productId);
 
 	void add(CartItemDto item);
+
+	Order getOrderByFiled(Date createDate, Account account, String address);
 
 	
 }

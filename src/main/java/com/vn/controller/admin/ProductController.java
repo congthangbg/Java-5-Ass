@@ -89,7 +89,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("edit/{id}")
-	public ModelAndView edit(ModelMap modelMap,@PathVariable("id") Integer id, Model model) {
+	public String edit(ModelMap modelMap,@PathVariable("id") Integer id, Model model) {
 		
 		Optional<Product> opt=productService.findById(id); 
 		ProductDto dto=new ProductDto();
@@ -103,20 +103,20 @@ public class ProductController {
 			List<Category> listCate=categoryService.findAll();
 			
 			model.addAttribute("listCate", listCate);
-			return new ModelAndView("adminProductCreate",modelMap) ;
+			return ("adminProductCreate") ;
 		}
 		
 		modelMap.addAttribute("message", "Category is not exited!");
-		return new ModelAndView("redirect:/admin/products",modelMap);
+		return ("redirect:/admin/products");
 	}
 	@PostMapping("/add")
-	public ModelAndView saveOrUpdate(ModelMap model,
+	public String saveOrUpdate(Model model,
 			@Valid @ModelAttribute("product")ProductDto dto,BindingResult result) {
 			if(result.hasErrors()) {
 				List<Category> listCate=categoryService.findAll();
 				model.addAttribute("listCate", listCate);
 				
-				return new ModelAndView("adminProductCreate");
+				return ("adminProductCreate");
 			}
 			Product entity=new Product();
 			BeanUtils.copyProperties(dto, entity);
@@ -126,15 +126,15 @@ public class ProductController {
 			
 			session=request.getSession();
 			session.setAttribute("message", "Product is saved!");
-			return new ModelAndView("redirect:/admin/products/views/page",model);
+			return ("redirect:/admin/products/views/page");
 		}
 
 	@GetMapping("delete/{id}")
-	public ModelAndView delete(ModelMap model,@PathVariable("id") Integer id) {
+	public String delete(@PathVariable("id") Integer id) {
 		productService.deleteById(id);
 		session=request.getSession();
 		session.setAttribute("message", "Product is deleted!");
-		return new ModelAndView("redirect:/admin/products",model);
+		return ("redirect:/admin/products");
 	}
 	
 	

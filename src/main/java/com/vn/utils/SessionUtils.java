@@ -21,7 +21,10 @@ public class SessionUtils {
 	        return getSession(request, "userId") != null;
 	    }
 	    public static String getLoginUser(HttpServletRequest request) {
-	        Object userId=getSession(request, "userId");
-	        return userId == null? null : userId.toString();
+	        Object email=getSession(request, "email");
+	        if (email == null)
+				return null;
+			else
+				return email.toString();
 	    }
 }

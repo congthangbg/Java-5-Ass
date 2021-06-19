@@ -10,8 +10,8 @@
 			<h2 class="text-center">My Shopping Cart</h2>
 			<div class="row">
 				<div class="col">
-					<a class="btn btn-warning btn-md" href="/admin/shoppingCart/clear">Clear
-						Cart</a> <a class="btn btn-success btn-md" href="/admin/">Add more</a>
+					<a class="btn btn-warning btn-md" href="/user/shoppingCart/clear">Clear
+						Cart</a> <a class="btn btn-success btn-md" href="/user/">Add more</a>
 				</div>
 			</div>
 			<div class="col-sm-12 text-center">
@@ -29,7 +29,7 @@
 					<tbody>
 
 <c:forEach var="item" items="${cartItems}">
-	<form action="/admin/shoppingCart/update" method="post">
+	<form action="/user/shoppingCart/update" method="post">
 		<input type="hidden" name="id" value="${item.productId}" />
 		<tr>
 			<td scope="row">${item.productId }</td>
@@ -43,7 +43,7 @@
 				href="/admin/shoppingCart/remove/${item.productId }">Remove</a></td>
 			 -->
 			<td>
-				<button onclick="openRelativeModal(${ item.productId })"
+				<button onclick="openRelativeModal(${ item.iproductIdd })"
 					type="button" class="btn btn-danger btn-sm"
 					data-bs-toggle="modal"
 					data-bs-target="#exampleModal${item.productId  }">Remove</button>
@@ -65,7 +65,7 @@
 								<button type="button" class="btn btn-secondary"
 									data-bs-dismiss="modal">Close</button>
 
-								<a href="/admin/shoppingCart/remove/${item.productId }"
+								<a href="/user/shoppingCart/remove/${item.productId }"
 									class="btn btn-danger">Remove</a>
 							</div>
 						</div>
@@ -85,27 +85,20 @@
 
 			</div>
 			<div class="row float-right">
-			<form action="/admin/shoppingCart/save" method="get">
-				<div class="col-md-12 text-center">
-        			<div class="row">
-					    <div class="col-md-2">
-							<label for=address>Address :</label>
-						</div>
-						<div class="col-md-4">
-							  <input class="form-control" id="address"  name="address" placeholder="Nhập địa chỉ..." autocomplete="off" />
-						</div>
-					
-						<div class="col-md-3">
+				<div class="col-md-8 text-center">
+			
+				</div>
+				<div class="col-md-4 float-right">
+					<div class="row">
+						<div class="col-md-7">
 							<p>Tổng Tiền:${total}</p>
 						</div>
-						<div class="col-md-3">
-							<button class="btn btn-warning btn-md" onclick="confirm();">Thanh toán</button>
+						<div class="col-md-5">
+							<a class="btn btn-warning btn-md"  onclick="confirm();">Thanh
+								toán</a>
 						</div>
-					
 					</div>
 				</div>
-
-				</form>
 			</div>
 		</div>
 	</section>

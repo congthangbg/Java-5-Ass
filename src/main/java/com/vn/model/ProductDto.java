@@ -2,6 +2,7 @@ package com.vn.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -20,6 +21,7 @@ public class ProductDto implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Id
 	private Integer id;
 	
 	@NotEmpty(message = "Username not empty!")

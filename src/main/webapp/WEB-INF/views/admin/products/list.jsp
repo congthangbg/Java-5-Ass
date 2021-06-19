@@ -23,15 +23,7 @@
 						<div class="col-3 mt-4">
 						<button type="submit" class="btn btn-success">Lọc</button></div>
 					</div>
-<div class="input-group">
-  <div class="form-outline">
-    <input type="search" name="productName" id="form1" class="form-control" />
-    <label class="form-label" for="form1">Search</label>
-  </div>
-  <button type="submit" class="btn btn-primary">
-    <i class="fas fa-search"></i>
-  </button>
-</div>
+
 				</div>
 			</form>
 			<div

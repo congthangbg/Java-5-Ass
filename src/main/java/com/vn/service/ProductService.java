@@ -33,6 +33,7 @@ public interface ProductService {
 	boolean existsById(Integer id);
 
 	Optional<Product> findById(Integer id);
+	
 
 	List<Product> saveAll(List<Product> entities);
 
@@ -47,7 +48,8 @@ public interface ProductService {
 	Page<Product> findByNameContaining(String name, Pageable pageable);
 
 	List<Product> filterProductByCateId(int i);
-	
+
+	Product findByIdContaining(Integer id);
 
 	
 

@@ -48,12 +48,26 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/products/detail_product.jsp" />
 	</definition>
+	
+		<definition name="detailProductPage"
+		extends="base.definition">
+		<put-attribute name="title" value="Detail Product" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/products/detail_product.jsp" />
+	</definition>
+	
+		<definition name="shopCart"
+		extends="base.definition">
+		<put-attribute name="title" value="Dashboard" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/user/ShopCart/cart-item.jsp" />
+	</definition>
 	<!-- FOR GUEST END -->
 
 	<!-- FOR ADMIN START -->
 	<definition name="homePageAdmin"
 		extends="base.definition.admin">
-		<put-attribute name="title" value="Dashboard" />
+		<put-attribute name="title" value="Home ..." />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/products/list.jsp" />
 	</definition>
