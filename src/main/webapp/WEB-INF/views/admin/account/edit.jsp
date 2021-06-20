@@ -41,7 +41,7 @@
 							<label for="role">Tài khoản</label>
 							<form:select path="admin" class="form-control">
 								<form:option value="1">Admin</form:option>
-								<form:option value="0">member</form:option>
+								<form:option value="0">User</form:option>
 							</form:select>
 							<form:errors path="admin" element="span" cssClass="text-danger" />
 						</div>

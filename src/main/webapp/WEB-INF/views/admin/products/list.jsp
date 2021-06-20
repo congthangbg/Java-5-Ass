@@ -1,16 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@ taglib uri="http://www.springframework.org/tags" prefix="tag" %>
 <!-- Section-->
 <div>
 	<section class="py-5">
-		<h1 class="text-center">List Product</h1>
+		<h1 class="text-center"><tag:message code="label.home.listProduct"/></h1>
 		<div class="container px-4 px-lg-5 mt-5">
-			<form action="/admin/cateId" method="get">
+		<div class="row">
+		
+				<div class="col-md-6">
+					<form action="/admin/cateId" method="get">
 				<div class="form-row align-items-center mb-5">
 				
 					<div class="row">
-					<div class="col-3">
+					<div class="col-6">
 						<label class="mr-sm-2" for="inlineFormCustomSelect">Lọc sản phẩm</label>
 						<select class="custom-select mr-sm-2 form-control"  name="category" id="inlineFormCustomSelect">
 							<option value="999">All</option>
@@ -26,6 +30,32 @@
 
 				</div>
 			</form>
+				</div>
+				<div class="col-md-6">
+				<form action="/admin/search" method="post">
+				<div class="form-row align-items-center mb-5">
+				
+					<div class="row">
+					<div class="col-6">
+						<label class="mr-sm-2" for="name">Tìm kiếm</label>
+						<div class="col-md-12">
+								<input type="text" class="form-control ml-2" name="productName"
+									id="name" aria-describedby="nameHId" placeholder="Name">
+							</div>
+							
+						</div>
+						<div class="col-md-2 mt-4">
+								<button type="submit" class="btn btn-success">Search</button>
+							</div>
+					</div>
+
+				</div>
+			</form>
+				</div>
+			</div>
+		
+		
+			
 			<div
 				class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 				<c:forEach var="product" items="${ListProduct.content}">

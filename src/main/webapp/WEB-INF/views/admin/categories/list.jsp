@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+    <%@ taglib uri="http://www.springframework.org/tags" prefix="tag" %>
 <div class="container">
 	<section class="row ">
 		<div class="col mt-4 ">
 			<div class="card">
-				<div class="card-header">
-					<h2>List of Category</h2>
+				<div class="card-header text-center">
+					<h2><tag:message code="label.home.listCategory"/></h2>
 				</div>
 				<div class="card-body">
 					<c:if test="${ not empty sessionScope.message }">

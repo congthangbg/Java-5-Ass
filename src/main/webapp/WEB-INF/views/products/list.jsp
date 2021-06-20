@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%--  <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%> --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <!-- Section-->
-
+    <%@ taglib uri="http://www.springframework.org/tags" prefix="tag" %>
 <section class="py-5">
-<h1 class="text-center">List Product</h1>
+<h1 class="text-center"><tag:message code="label.home.listProduct"/></h1>
     <div class="container px-4 px-lg-5 mt-5">
     <form action="/user/cateId" method="get">
 				<div class="form-row align-items-center mb-5">

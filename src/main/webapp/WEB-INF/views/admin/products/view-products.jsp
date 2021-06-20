@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+    <%@ taglib uri="http://www.springframework.org/tags" prefix="tag" %>
 
 <div class="container">
 
 	<div class="text-center mt-4 mb-4">
-		<h2>List Products</h2>
+		<h2><tag:message code="label.home.listProduct"/></h2>
 	</div>
 	<div class="row">
 		<div class="col-sm-12">

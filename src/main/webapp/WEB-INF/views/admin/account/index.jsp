@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+    <%@ taglib uri="http://www.springframework.org/tags" prefix="tag" %>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 
 <div>
-	<h2 class="text-center mt-4 mb-4">List Account</h2>
+	<h2 class="text-center mt-4 mb-4"><tag:message code="label.home.listAccount"/></h2>
 	<div class="col-10 offset-1 mt-5  p-2">
 		<form method="GET"
 			action="${ pageContext.request.contextPath }/admin/account">
@@ -41,7 +41,7 @@
 			<c:remove var="sucessfully" scope="session" />
 		</c:if>
 		<c:if test="${ not empty sessionScope.status }">
-			<div class="text-danger text-center alert alert-success"">${ sessionScope.status }</div>
+			<div class="text-danger text-center alert alert-success">${ sessionScope.status }</div>
 			<c:remove var="status" scope="session" />
 		</c:if>
 		<div class="">
