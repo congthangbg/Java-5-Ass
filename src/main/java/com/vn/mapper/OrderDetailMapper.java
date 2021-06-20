@@ -15,9 +15,9 @@ import com.vn.model.OrderDetailDTO;
 @Service
 public class OrderDetailMapper {
 	@Autowired
-	private ModelMapper modelMapper;
+	private  ModelMapper modelMapper;
 	
-	public OrderDetail convertToEntity(CartItemDto cartItemDto) {
+	public  OrderDetail convertToEntity(CartItemDto cartItemDto) {
 		OrderDetail entity = modelMapper.map(cartItemDto, OrderDetail.class);
 		return entity;
 	}

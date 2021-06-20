@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CartItemDto {
-	@Id
+
 	private Integer productId;
 	private String name;
 	@Positive(message = "Số lượng phải là số !")

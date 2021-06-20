@@ -1,5 +1,7 @@
 package com.vn.controller;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.vn.Export.UserExcelExporter;
 import com.vn.entity.Account;
 import com.vn.entity.Order;
 import com.vn.entity.OrderDetail;
@@ -52,6 +56,9 @@ public class ShopCartUserController {
 	
 	@Autowired
 	HttpSession session;
+	
+	@Autowired
+	Order order;
 
 	@GetMapping("views")
 	public String listView(Model model) {
@@ -75,7 +82,6 @@ public class ShopCartUserController {
 		
 			return "forward:/user/shoppingCart/views";
 		}
-		Order order = new Order();
 		//lấy ra tk đã đăng nhập
 		Account account = (Account) session.getAttribute("user");
 		
@@ -103,7 +109,11 @@ public class ShopCartUserController {
 		}	
 		
 		orderDetailService.saveAll(listEntity);
-		
+		model.addAttribute("cartItems", listEntity1);
+		model.addAttribute("total", shoppingCartSevice.getAmount());
+        HttpSession session = request.getSession();
+        session.setAttribute("status", true);
+        session.setAttribute("message1", "Bạn đã thanh toán thành công!");
 		model.addAttribute("message", "Bạn đã thanh toán thành công!");
 		
 		return "shopCart";
@@ -121,7 +131,6 @@ public class ShopCartUserController {
 			item.setQuantity(1);
 			shoppingCartSevice.add(item);
 
-			
 		}
 		return "redirect:/user/shoppingCart/views";
 	}
@@ -145,4 +154,26 @@ public class ShopCartUserController {
 		shoppingCartSevice.clear();
 		return "redirect:/user/shoppingCart/views";
 	}
+	
+	@GetMapping("/excel")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+        
+    	Collection<CartItemDto> cartItems = shoppingCartSevice.getAllCartItems();
+		List<CartItemDto> listEntity1 = cartItems.stream().collect(Collectors.toList());
+		List<OrderDetail> listEntity = orderDetailMapper.convertToListEntity(listEntity1);
+         
+		String total=String.valueOf(shoppingCartSevice.getAmount());
+		Account account = (Account) session.getAttribute("user");
+        UserExcelExporter excelExporter = new UserExcelExporter(listEntity,total,account,order);
+         
+        excelExporter.export(response);  
+        
+    }  
 }

@@ -78,6 +78,11 @@
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<version>9.0.40</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>4.1.2</version>
+		</dependency>
 		<!-- Tiles API -->
 		<!-- http://mvnrepository.com/artifact/org.apache.tiles/tiles-api%20 -->
 		<dependency>

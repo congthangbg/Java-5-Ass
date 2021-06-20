@@ -14,10 +14,11 @@
 						Cart</a> <a class="btn btn-success btn-md" href="/admin/">Add more</a>
 				</div>
 			</div>
-			<c:if test="${ not empty message }">
-            <div class="alert alert-success mt-4">${message }</div>
-            <c:remove var="message" scope="session"/>
+			<c:if test="${ not empty sessionScope.message1 }">
+            <div class="alert alert-success mt-4">${ message1 }</div>
+            <c:remove var="message1" scope="session"/>
            </c:if>
+           
 			<div class="col-sm-12 text-center">
 				<table class="table table-striped ">
 					<thead>
@@ -88,7 +89,7 @@
 				<hr />
 
 			</div>
-			<div class="row float-right">
+			<div class="row float-right mb-5">
 				<form action="/admin/shoppingCart/save"  method="get">
 					<div class="col-md-12 text-center">
 						<div class="row">
@@ -108,6 +109,12 @@
 							<div class="col-md-3">
 								<button class="btn btn-warning btn-md" >Thanh
 									toán</button>
+								
+								<c:if test="${ not empty sessionScope.status }">
+						           <a class="btn btn-warning btn-md" href="/admin/shoppingCart/excel">Excel</a>
+						           <c:remove var="status" scope="session"/>
+						          </c:if>
+								
 							</div>
 
 						</div>
